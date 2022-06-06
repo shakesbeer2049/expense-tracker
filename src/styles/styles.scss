@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500&display=swap');
+$bdr: 3px solid red;
+$bdg: 3px solid green;
+$bdy: 3px solid yellow;
+
+
+body{
+    // background-color : teal
+    font-family: 'Roboto Mono', monospace;
+    
+}
+.App{
+    border: $bdr;
+    width: 700px;
+    height: 720px;
+    margin: auto;
+}
+h1{
+    // border: $bdr;
+    text-align: center;
+}
+.input-box{
+    
+    margin :auto;
+
+}
+
+.buttons{
+
+    margin-left: 29%;
+    color: white;
+    .save-btn{
+        background-color: green;
+        border-radius: 5px;
+        margin: auto;
+    }
+    .cancel-btn{
+        background-color: red;
+        border-radius: 5px;
+        margin: auto;
+        margin-left: 5px;
+    }
+}
+.chart{
+
+    border: $bdg;
+    margin: auto;
+
+}
+
+.history{
+    h1{
+        text-align: left;
+    }
+}
+
+@media (max-width:700px) {
+    
+    .App{
+        height: 98vh;
+        width: 100%;
+        background-color: wheat;
+        padding: 5px;
+    }
+    .input-data{
+        border: $bdr;
+    }
+    .chart{
+        width: 80% !important;
+    }
+}

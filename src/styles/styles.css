@@ -1,0 +1,64 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+body {
+  font-family: "Roboto Mono", monospace;
+}
+
+.App {
+  border: 3px solid red;
+  width: 700px;
+  height: 720px;
+  margin: auto;
+}
+
+h1 {
+  text-align: center;
+}
+
+.input-box {
+  margin: auto;
+}
+
+.buttons {
+  margin-left: 29%;
+  color: white;
+}
+.buttons .save-btn {
+  background-color: green;
+  border-radius: 5px;
+  margin: auto;
+}
+.buttons .cancel-btn {
+  background-color: red;
+  border-radius: 5px;
+  margin: auto;
+  margin-left: 5px;
+}
+
+.chart {
+  border: 3px solid green;
+  margin: auto;
+}
+
+.history h1 {
+  text-align: left;
+}
+
+@media (max-width: 700px) {
+  .App {
+    height: 98vh;
+    width: 100%;
+    background-color: wheat;
+    padding: 5px;
+  }
+
+  .input-data {
+    border: 3px solid red;
+  }
+
+  .chart {
+    width: 80% !important;
+  }
+}/*# sourceMappingURL=styles.css.map */
