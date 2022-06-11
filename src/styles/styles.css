@@ -7,7 +7,6 @@ body {
 }
 
 .App {
-  border: 3px solid red;
   width: 700px;
   height: 720px;
   margin: auto;
@@ -38,24 +37,35 @@ h1 {
 }
 
 .chart {
-  border: 3px solid green;
   margin: auto;
+  width: 40%;
 }
 
-.history h1 {
-  text-align: left;
+.history {
+  height: 43%;
+  overflow: scroll;
+}
+.history li {
+  padding: 3px;
+}
+
+.add-icon {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 11px;
+  background-color: #1982c4;
+  border-radius: 30px;
+  margin-right: 5%;
+  margin-bottom: 5%;
 }
 
 @media (max-width: 700px) {
   .App {
-    height: 98vh;
+    height: 100vh;
     width: 100%;
-    background-color: wheat;
+    background-color: #f1faee;
     padding: 5px;
-  }
-
-  .input-data {
-    border: 3px solid red;
   }
 
   .chart {

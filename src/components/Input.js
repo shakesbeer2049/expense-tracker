@@ -1,27 +1,83 @@
-import { InputNumber } from "primereact/inputnumber";
-import { Dropdown, Button } from "primereact/dropdown";
+import { Calendar } from "primereact/calendar";
 import { useState, useContext } from "react";
 import MoneyContext from "../context/MoneyContext";
-
-const Input = ({ balance, setBalance }) => {
+import nextId from "react-id-generator";
+import DatePicker from "react-datepicker";
+import { useDisclosure } from "@chakra-ui/react";
+const Input = ({
+  balance,
+  setBalance,
+  history,
+  setHistory,
+  income,
+  setIncome,
+  investment,
+  setInvestment,
+  expense,
+  setExpense,
+  saving,
+  setSaving,
+  setShowIB,
+  onClose,
+}) => {
   // STATE
-  const {input, setInput, type, setType} = useContext(MoneyContext);
-
+  const { input, setInput, type, setType, note, setNote, date, setDate } =
+    useContext(MoneyContext);
 
   const onInputChange = (e) => {
-    console.log(e.target.value);
     setInput(e.target.value);
   };
 
-  const onSelect = (e) => {
-    console.log(e.target.value);
-    setType(e.target.value);
+  const onNoteChange = (e) => {
+    setNote(e.target.value);
   };
 
   const onSave = () => {
-    if (type === "inc") setBalance(Number(balance) + Number(input));
-    else setBalance(Number(balance) - Number(input));
-    setInput("");
+    if (input && note) {
+      switch (type) {
+        case "inc":
+          setBalance(Number(balance) + Number(input));
+          setIncome(income + Number(input));
+          break;
+        case "sav":
+          balance > 0
+            ? setBalance(Number(balance) - Number(input))
+            : setBalance(Number(input) - Number(balance));
+          setSaving(saving + Number(input));
+          break;
+
+        case "inv":
+          balance > 0
+            ? setBalance(Number(balance) - Number(input))
+            : setBalance(Number(input) - Number(balance));
+          setInvestment(investment + Number(input));
+          break;
+
+        case "exp":
+          balance > 0
+            ? setBalance(Number(balance) - Number(input))
+            : setBalance(Number(input) - Number(balance));
+          setExpense(expense + Number(input));
+          break;
+
+        default:
+          break;
+      }
+      // if (type === "inc") setBalance(Number(balance) + Number(input));
+      // else setBalance(Number(balance) - Number(input));
+      let data = {
+        id: nextId(),
+        type,
+        input,
+        note,
+        date: date.toString(),
+      };
+      setHistory(history.concat(data));
+      console.log(history);
+
+      setInput("");
+      setNote("");
+    } else window.alert("empty fields");
   };
 
   return (
@@ -33,30 +89,39 @@ const Input = ({ balance, setBalance }) => {
         placeholder="enter value"
         className="border-2 border-black mr-1"
       />
-      <select name="type" id="type" onChange={onSelect}>
-        <option value="inc" selected>
-          Income
-        </option>
+      <select name="type" id="type" value={type} onChange={(e) => setType(e.target.value)}>
+        <option value="inc">Income</option>
         <option value="exp">Expenses</option>
         <option value="sav">Savings</option>
         <option value="inv">Investments</option>
       </select>{" "}
       <br />
-      <input
-        type="text"
-        onChange={onInputChange}
-        value={input || ""}
-        placeholder="add a note..."
-        className="border-2 border-black flex mt-1 m-auto "
-      />
+      <div className="note-and-date flex mt-2">
+        <input
+          type="text"
+          onChange={onNoteChange}
+          value={note || ""}
+          placeholder="add a note..."
+          className="border-2 border-black flex mt-1 mr-2 m-auto "
+        />
+        <DatePicker
+          className="mt-1"
+          selected={date}
+          onChange={(date) => setDate(date)}
+        />
+      </div>
       <br />
       <div className="buttons">
-      <button className="save-btn px-3 py-2 " onClick={onSave} type="submit">
-        Save
-      </button>
-      <button className="cancel-btn px-3 py-2 " onClick={onSave} type="submit">
-        Cancel
-      </button>
+        <button className="save-btn px-3 py-2 " onClick={onSave} type="submit">
+          Save
+        </button>
+        <button
+          className="cancel-btn px-3 py-2 "
+          onClick={onClose}
+          type="submit"
+        >
+          Close
+        </button>
       </div>
     </div>
   );

@@ -1,41 +1,35 @@
-import React, { useState, useContext } from "react";
-import MoneyContext from "../context/MoneyContext";
-import { Chart } from "primereact/chart";
+import * as React from "react";
+import { Doughnut } from "react-chartjs-2";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
-const BarGraph = () => {
-    const {input, setInput, type, setType} = useContext(MoneyContext);
-  const [chartData] = useState({
-    labels: ["Income", "Expenses", "Savings", "Investments"],
+ChartJS.register(ArcElement, Tooltip, Legend);
+
+const BarGraph = ({ income, saving, expense, investment }) => {
+  const data = {
+    labels: ["Income", "Savings", "Expenses", "Investments",],
     datasets: [
       {
-        data: [300, 50, 100, 150],
-        backgroundColor: ["#42A5F5", "#66BB6A", "#FFA726", "#FFA799"],
-        hoverBackgroundColor: ["#64B5F6", "#81C784", "#FFB74D", "#FFA799"],
+        label: "Spend Analysis",
+        data: [income, saving, expense, investment],
+        backgroundColor: [
+          "#3a86ff",
+          "#f77f00",
+          "#d90429",
+          "3ffca3a",
+      
+        ],
+        borderColor: [
+          "#3a86ff",
+          "#f77f00",
+          "#d90429",
+          "#ffca3a",
+        
+        ],
+        borderWidth: 1,
       },
     ],
-  });
-
-  const [lightOptions] = useState({
-    plugins: {
-      legend: {
-        labels: {
-          color: "#495057",
-        },
-      },
-    },
-  });
-
-  return (
-    <div className="card flex justify-content-center">
-      <Chart
-        className="chart"
-        type="pie"
-        data={chartData}
-        options={lightOptions}
-        style={{ position: "relative", width: "30%" }}
-      />
-    </div>
-  );
+  };
+  return <Doughnut data={data} className = "chart" />;
 };
 
 export default BarGraph;
