@@ -1,3 +1,4 @@
+import { DeleteIcon } from '@chakra-ui/icons';
 import { Input } from '@chakra-ui/react'
 import { useState } from 'react';
 
@@ -56,8 +57,10 @@ const History = ({ history, setHistory,balance, setBalance }) => {
               {/* <span>{data.type}</span> */}
              <div className="amount-delete flex flex-col justify-between">
              <span className="text-2xl">{data.type === "inc" ? `+${data.input}` : -data.input}</span>
-              <button onClick={() => onDataDelete(data.id)}>delete</button>
-              <button onClick={() => onDataEdit(data.id)}>edit</button>
+              <div className="edit-delete flex justify-between">
+              <button className='' onClick={() => onDataDelete(data.id)}><DeleteIcon w={6} h={6} /></button>
+              <button className='bg-blue-500 rounded-lg p-1 px-2' onClick={() => onDataEdit(data.id)}>edit</button>
+              </div>
              </div>
             </li>
           )):filtered.map((data) => (
@@ -68,7 +71,13 @@ const History = ({ history, setHistory,balance, setBalance }) => {
               <span className="text-md">{data.date.substr(4,11)}</span>
              </div>
               {/* <span>{data.type}</span> */}
-              <span className="text-2xl">{data.type === "inc" ? `+${data.input}` : -data.input}</span>
+              <div className="amount-delete flex flex-col justify-between">
+             <span className="text-2xl">{data.type === "inc" ? `+${data.input}` : -data.input}</span>
+              <div className="edit-delete flex justify-between">
+              <button className='' onClick={() => onDataDelete(data.id)}><DeleteIcon w={6} h={6} /></button>
+              <button className='bg-blue-500 rounded-lg p-1 px-2' onClick={() => onDataEdit(data.id)}>edit</button>
+              </div>
+             </div>
             </li>))}
         </ul>
       </div>

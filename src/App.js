@@ -73,6 +73,7 @@ function App() {
             expense={expense}
             investment={investment}
             saving={saving}
+          
           />
 
           <History history={history} setHistory={setHistory} balance={balance} setBalance = {setBalance} />

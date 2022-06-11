@@ -26,6 +26,7 @@ const BarGraph = ({ income, saving, expense, investment }) => {
         
         ],
         borderWidth: 1,
+        // circumference:10,
       },
     ],
   };
