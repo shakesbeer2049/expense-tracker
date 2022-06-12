@@ -32,9 +32,15 @@ function App() {
       <div className="App">
         <h1 className="heading-main text-3xl md:text-3xl">Expense Tracker</h1>
         <h1 className="text-green-500 text-6xl  md:text-6xl">{balance}</h1>
-      
-          <AddIcon onClick={onOpen} className="add-icon" color="white" w={16} h={16} />
-     
+
+        <AddIcon
+          onClick={onOpen}
+          className="add-icon"
+          color="white"
+          w={16}
+          h={16}
+        />
+
         <MoneyProvider>
           <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
@@ -73,10 +79,23 @@ function App() {
             expense={expense}
             investment={investment}
             saving={saving}
-          
           />
 
-          <History history={history} setHistory={setHistory} balance={balance} setBalance = {setBalance} />
+          <History
+            history={history}
+            setHistory={setHistory}
+            balance={balance}
+            setBalance={setBalance}
+            income={income}
+            expense={expense}
+            investment={investment}
+            saving={saving}
+            setIncome = {setIncome}
+            setExpense={setExpense}
+            setInvestment={setInvestment}
+            setSaving={setSaving}
+
+          />
         </MoneyProvider>
         {/* <button onClick={()=> {setShowIB(true)}} className="add px-5 py-3">+</button> */}
       </div>

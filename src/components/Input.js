@@ -36,7 +36,7 @@ const Input = ({
     if (input && note) {
       switch (type) {
         case "inc":
-          setBalance(Number(balance) + Number(input));
+          setBalance(Number(  ) + Number(input));
           setIncome(income + Number(input));
           break;
         case "sav":
