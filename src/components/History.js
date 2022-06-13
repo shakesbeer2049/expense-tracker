@@ -105,7 +105,7 @@ const History = ({
                         className=""
                         onClick={() => onDataDelete(data.id)}
                       >
-                        <DeleteIcon w={6} h={6} />
+                        <DeleteIcon w={6} h={6} color="red.400" />
                       </button>
                       <button
                         className="bg-blue-500 rounded-lg p-1 px-2"

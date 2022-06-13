@@ -1,9 +1,8 @@
-import { Calendar } from "primereact/calendar";
-import { useState, useContext } from "react";
+import {useContext } from "react";
 import MoneyContext from "../context/MoneyContext";
 import nextId from "react-id-generator";
 import DatePicker from "react-datepicker";
-import { useDisclosure } from "@chakra-ui/react";
+
 const Input = ({
   balance,
   setBalance,
