@@ -90,11 +90,10 @@ function App() {
             expense={expense}
             investment={investment}
             saving={saving}
-            setIncome = {setIncome}
+            setIncome={setIncome}
             setExpense={setExpense}
             setInvestment={setInvestment}
             setSaving={setSaving}
-
           />
         </MoneyProvider>
         {/* <button onClick={()=> {setShowIB(true)}} className="add px-5 py-3">+</button> */}

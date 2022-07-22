@@ -1,7 +1,22 @@
 import { DeleteIcon } from "@chakra-ui/icons";
-import { Input } from "@chakra-ui/react";
+import Input from "./Input";
 import { useState } from "react";
+import { MoneyProvider } from "../context/MoneyContext";
+import MoneyContext from "../context/MoneyContext";
+import { useContext } from "react";
 
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+  Button,
+} from "@chakra-ui/react";
+import Edit from "./Edit";
 const History = ({
   history,
   setHistory,
@@ -17,7 +32,12 @@ const History = ({
   setExpense,
 }) => {
   // console.log(history, "history");
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { input, setInput, type, setType, note, setNote, date, setDate } =
+    useContext(MoneyContext);
   // STATE
+  const [editInput, setEditInput] = useState("");
+  const [editNote, setEditNote] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [filtered, setFiltered] = useState([]);
   const [searchActive, setsearchActive] = useState(false);
@@ -73,13 +93,17 @@ const History = ({
   //? EDIT
   const onDataEdit = (id) => {
     let dataToUpdate = history.find((data) => data.id === id);
+    setEditInput(dataToUpdate.input);
+    setEditNote(dataToUpdate.note);
+    onOpen();
+
     console.log(dataToUpdate);
   };
   return (
     <>
       <div className="header-history flex items-center justify-between pt-2">
         <h1 className="text-4xl my-2 font-bold mr-16">History</h1>
-        <Input placeholder="Search" onChange={onSearch} value={searchTerm} />
+        <input placeholder="Search" onChange={onSearch} value={searchTerm} />
       </div>
       <div className="history">
         <ul>
@@ -107,12 +131,12 @@ const History = ({
                       >
                         <DeleteIcon w={6} h={6} color="red.400" />
                       </button>
-                      <button
+                      {/* <button
                         className="bg-blue-500 rounded-lg p-1 px-2"
                         onClick={() => onDataEdit(data.id)}
                       >
                         edit
-                      </button>
+                      </button> */}
                     </div>
                   </div>
                 </li>
@@ -140,17 +164,41 @@ const History = ({
                       >
                         <DeleteIcon w={6} h={6} />
                       </button>
-                      <button
+                      {/* <button
                         className="bg-blue-500 rounded-lg p-1 px-2"
                         onClick={() => onDataEdit(data.id)}
                       >
                         edit
-                      </button>
+                      </button> */}
                     </div>
                   </div>
                 </li>
               ))}
         </ul>
+        <MoneyProvider>
+          <Modal isOpen={isOpen} onClose={onClose}>
+            <ModalOverlay />
+            <ModalContent>
+              <ModalHeader>Expense Tracker</ModalHeader>
+              <ModalCloseButton />
+              <ModalBody>
+                <Edit
+                  onClose={onClose}
+                  setEditInput={setEditInput}
+                  editInput={editInput}
+                  editNote={editNote}
+                  setEditNote={setEditNote}
+                />
+              </ModalBody>
+
+              <ModalFooter>
+                {/* <Button colorScheme='red' mr={3} onClick={onClose}>
+        Close
+      </Button> */}
+              </ModalFooter>
+            </ModalContent>
+          </Modal>
+        </MoneyProvider>
       </div>
     </>
   );

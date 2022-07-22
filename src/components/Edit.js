@@ -2,8 +2,9 @@ import { useContext } from "react";
 import MoneyContext from "../context/MoneyContext";
 import nextId from "react-id-generator";
 import DatePicker from "react-datepicker";
+import { useState } from "react";
 
-const Input = ({
+const Edit = ({
   balance,
   setBalance,
   history,
@@ -18,45 +19,49 @@ const Input = ({
   setSaving,
   setShowIB,
   onClose,
+  setEditInput,
+  editInput,
+  editNote,
+  setEditNote,
 }) => {
   // STATE
   const { input, setInput, type, setType, note, setNote, date, setDate } =
     useContext(MoneyContext);
 
   const onInputChange = (e) => {
-    setInput(e.target.value);
+    setEditInput(e.target.value);
   };
 
   const onNoteChange = (e) => {
-    setNote(e.target.value);
+    setEditNote(e.target.value);
   };
 
-  const onSave = () => {
-    if (input && note) {
+  const onUpdate = () => {
+    if (editInput && editNote) {
       switch (type) {
         case "inc":
-          setBalance(Number() + Number(input));
-          setIncome(income + Number(input));
+          setBalance(Number() + Number(editInput));
+          setIncome(income + Number(editInput));
           break;
         case "sav":
           balance > 0
-            ? setBalance(Number(balance) - Number(input))
-            : setBalance(Number(input) - Number(balance));
-          setSaving(saving + Number(input));
+            ? setBalance(Number(balance) - Number(editInput))
+            : setBalance(Number(editInput) - Number(balance));
+          setSaving(saving + Number(editInput));
           break;
 
         case "inv":
           balance > 0
-            ? setBalance(Number(balance) - Number(input))
-            : setBalance(Number(input) - Number(balance));
-          setInvestment(investment + Number(input));
+            ? setBalance(Number(balance) - Number(editInput))
+            : setBalance(Number(editInput) - Number(balance));
+          setInvestment(investment + Number(editInput));
           break;
 
         case "exp":
           balance > 0
-            ? setBalance(Number(balance) - Number(input))
-            : setBalance(Number(input) - Number(balance));
-          setExpense(expense + Number(input));
+            ? setBalance(Number(balance) - Number(editInput))
+            : setBalance(Number(editInput) - Number(balance));
+          setExpense(expense + Number(editInput));
           break;
 
         default:
@@ -67,15 +72,15 @@ const Input = ({
       let data = {
         id: nextId(),
         type,
-        input,
-        note,
+        editInput,
+        editNote,
         date: date.toString(),
       };
       setHistory(history.concat(data));
       console.log(history);
 
-      setInput("");
-      setNote("");
+      setEditInput("");
+      setEditNote("");
     } else window.alert("empty fields");
   };
 
@@ -84,7 +89,7 @@ const Input = ({
       <input
         type="number"
         onChange={onInputChange}
-        value={input || ""}
+        value={editInput || ""}
         placeholder="enter value"
         className="border-2 border-black mr-1"
       />
@@ -104,7 +109,7 @@ const Input = ({
         <input
           type="text"
           onChange={onNoteChange}
-          value={note || ""}
+          value={editNote || ""}
           placeholder="add a note..."
           className="border-2 border-black flex mt-1 mr-2 m-auto "
         />
@@ -116,8 +121,8 @@ const Input = ({
       </div>
       <br />
       <div className="buttons">
-        <button className="save-btn px-3 py-2 " onClick={onSave} type="submit">
-          Save
+        <button className="save-btn px-3 py-2 " onClick={onUpdate} type="submit">
+          Update
         </button>
         <button
           className="cancel-btn px-3 py-2 "
@@ -130,4 +135,4 @@ const Input = ({
     </div>
   );
 };
-export default Input;
+export default Edit;
